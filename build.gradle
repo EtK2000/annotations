@@ -1,0 +1,27 @@
+plugins {
+	id 'java'
+	id 'maven-publish'
+}
+
+group = 'com.etk2000'
+version = '0.1'
+
+sourceSets.main.java.srcDirs = ['src']
+
+publishing {
+	repositories {
+		maven {
+			name = 'GitHubPackages'
+			url = 'https://maven.pkg.github.com/EtK2000/annotations'
+			credentials {
+				username = System.getenv('GITHUB_ACTOR')
+				password = System.getenv('GITHUB_TOKEN')
+			}
+		}
+	}
+	publications {
+		gpr(MavenPublication) {
+			from(components.java)
+		}
+	}
+}
